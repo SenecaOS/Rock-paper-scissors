@@ -2,20 +2,80 @@ const choice = ["rock", "paper", "scissors"];
 let humanScore = 0;
 let computerScore = 0;
 let computerChoice = null;
-let humanChoice = null;
 
 
-playGame();
+/*
+ const input = document.querySelector("input");
+        const ul = document.querySelector("ul");
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", e =>{
+            e.preventDefault();
+            const itemValue = input.value;
+            input.value = "";
+            const list = document.createElement("li");
+            const span = document.createElement("span");
+            const newBtn = document.createElement("button");
+            span.textContent = itemValue + "    ";
+            newBtn.textContent = "Delete";
+            list.append(span, newBtn);
+            ul.append(list);
 
-function playGame(){
-    for(let i = 0; i<5; i++){
-        playRound(getHumanChoice(), getComputerChoice());
-        getScore();
-    }
+*/
+const buttonsDiv = document.querySelector("buttons");
+const rock = document.createElement("button");
+const paper = document.createElement("button");
+const scissors = document.createElement("button");
+buttonsDiv.append(rock, paper, scissors);
+
+
+
+const announcement = document.querySelector("div");
+const roundWinner = document.createElement("p");
+roundWinner.textContent = "‎ ";
+announcement.append(roundWinner);
+
+
+
+
+buttons = document.querySelectorAll("button");
+
+let lastPressed = 0;
+
+addButtonFunctionality();
+
+function addButtonFunctionality(){
+    for(let i = 0; i<buttons.length; i++){
+    buttons[i].textContent = choice[i];
+    buttons[i].addEventListener("click", e =>{
+        if(computerScore != 5 && humanScore != 5){
+            e.preventDefault();
+            lastPressed = i;
+            playRound(choice[i], getComputerChoice());
+        }
+
+});
+}
 }
 
+
+const runningScore = document.createElement("h1");
+announcement.append(runningScore);
+
+
+
+
 function getScore(){
-    console.log(`Human player has score: ${humanScore}\nComputer has score: ${computerScore}`)
+    if(humanScore == 5){
+        runningScore.textContent = `Human player has score: ${humanScore}\nComputer has score: ${computerScore}. Human wins!`;
+        return;
+
+    }
+    else if(computerScore == 5){
+        runningScore.textContent = `Human player has score: ${humanScore}\nComputer has score: ${computerScore}. Computer wins!`;
+        return;
+
+    }
+    runningScore.textContent = `Human player has score: ${humanScore}\nComputer has score: ${computerScore}`;
 }
 
 function getComputerChoice() {
@@ -24,10 +84,6 @@ function getComputerChoice() {
     return choice[randomDigit];
 }
 
-function getHumanChoice() {
-    humanChoice = prompt("Rock paper scissors!");
-    return humanChoice;
-}
 
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
@@ -41,19 +97,20 @@ function playRound(humanChoice, computerChoice) {
         humanChoice == "paper" ? incrementAndPrintWinner("computer") : incrementAndPrintWinner("human"); 
     }
     else{
-        console.log(`Human chose ${humanChoice} and computer chose ${computerChoice}\nIt's a draw!`)
+        roundWinner.textContent = `Human chose ${humanChoice} and computer chose ${computerChoice} - It's a draw!`;
     }
 
 }
 
 function incrementAndPrintWinner(winner) {
     if (winner == "human") {
-        console.log(`Human chose ${humanChoice} and computer chose ${computerChoice}\nHuman wins!`)
+        roundWinner.textContent = `Human chose ${choice[lastPressed]} and computer chose ${computerChoice} - Human wins!`;
         humanScore++;
     }
     else {
-        console.log(`Human chose ${humanChoice.toLowerCase()} and computer chose ${computerChoice}\nComputer wins!`)
+        roundWinner.textContent = `Human chose ${choice[lastPressed]} and computer chose ${computerChoice} - Computer wins!`;
         computerScore++;
     }
+    getScore();
 
 }
