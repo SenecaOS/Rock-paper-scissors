@@ -4,23 +4,6 @@ let computerScore = 0;
 let computerChoice = null;
 
 
-/*
- const input = document.querySelector("input");
-        const ul = document.querySelector("ul");
-        const btn = document.querySelector("button");
-        btn.addEventListener("click", e =>{
-            e.preventDefault();
-            const itemValue = input.value;
-            input.value = "";
-            const list = document.createElement("li");
-            const span = document.createElement("span");
-            const newBtn = document.createElement("button");
-            span.textContent = itemValue + "    ";
-            newBtn.textContent = "Delete";
-            list.append(span, newBtn);
-            ul.append(list);
-
-*/
 const buttonsDiv = document.querySelector("buttons");
 const rock = document.createElement("button");
 const paper = document.createElement("button");
